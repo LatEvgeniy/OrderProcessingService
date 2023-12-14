@@ -1,0 +1,17 @@
+syntax = "proto3";
+option go_package = "/proto";
+
+package proto;
+
+message ErrorDto{
+    ErrorCode code = 1;
+    string message = 2;
+}
+
+enum ErrorCode{
+    ERROR_NONE = 0;
+    ERROR_INTERNAL = 1;
+    ERROR_INVALID_REQUEST = 2;
+    ERROR_REDIS_PROCESSING = 3;
+    ERROR_POSTGRES_PROCESSING = 4;
+}

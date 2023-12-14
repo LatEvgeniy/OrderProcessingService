@@ -1,0 +1,78 @@
+syntax = "proto3";
+option go_package = "/proto";
+
+package proto;
+
+import "proto/error.proto";
+
+message CreateOrderRequest{
+    string userId = 1;
+    OrderPair pair = 2;
+    OrderType type = 3;
+    OrderDirection direction = 4;
+    double price = 5;
+    double volume = 6;
+}
+
+message CreateOrderResponse{
+    Order createdOrder = 1;
+    ErrorDto error = 2;
+}
+
+message GetUserOrdersRequest{
+    string userId = 1;
+}
+
+message GetUserOrdersResponse{
+    repeated Order orders = 1;
+    ErrorDto error = 2;
+}
+
+message RemoveOrderRequest{
+    string userId = 1;
+    string orderId = 2;
+}
+
+message RemoveOrderResponse{
+    Order removedOrder = 1;
+    ErrorDto error = 2;
+}
+
+message MatchOrdersEvent{
+    Order createdMatchedOrder = 1;
+    Order limitMatchedOrder = 2;
+    double matchedVolume = 3;
+    ErrorDto error = 4;
+}
+
+message Order{
+    string userId = 1;
+    string orderId = 2;
+    OrderPair pair = 3;
+    OrderDirection direction = 4;
+    OrderType type = 5;
+    double initVolume = 6;
+    double initPrice = 7;
+    double filledPrice = 8;
+    double filledVolume = 9;
+    double lockedVolume = 10;
+    int64 expirationDate = 11;
+    int64 creationDate = 12;
+    int64 updatedDate = 13;
+}
+
+enum OrderDirection{
+    BUY = 0;
+    SELL = 1;
+}
+
+enum OrderPair {
+    USD_EUR = 0;
+    USD_UAH = 1;
+    UAH_EUR = 2;
+}
+
+enum OrderType{
+    MARKET = 0;
+    LIMIT = 1;
+}

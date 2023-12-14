@@ -1,0 +1,83 @@
+syntax = "proto3";
+option go_package = "/proto";
+
+package proto;
+
+import "proto/error.proto";
+
+message Users{
+	repeated User users = 1;
+}
+
+message User{
+    string id = 1;
+	string name = 2;
+	repeated Balance balances = 3;
+}
+
+message Balance{
+	string currencyName = 1;
+	double balance = 2;
+	double lockedBalance = 3;
+}
+
+message CreateUserResponse{
+	User createdUser = 1;
+	ErrorDto error = 2;
+}
+
+message AddMoneyRequest{
+	string userId = 1;
+	Currency currency = 2;
+	double volume = 3;
+}
+
+message AddMoneyResponse{
+	User user = 1;
+	ErrorDto error = 2;
+}
+
+message SubtractMoneyRequest{
+	string userId = 1;
+	Currency currency = 2;
+	double volume = 3;
+}
+
+message SubtractMoneyResponse{
+	User user = 1;
+	ErrorDto error = 2;
+}
+
+message GetUserByIdResponse{
+	User user = 1;
+	ErrorDto error = 2;
+}
+
+message LockBalanceRequest{
+    string userId = 1;
+    Currency Currency = 2;
+    double volume = 3;
+}
+
+message LockBalanceResponse{
+    string userId = 1;
+	ErrorDto error = 2;
+}
+
+message UnlockBalanceRequest{
+    string userId = 1;
+    Currency Currency = 2;
+    double volume = 3;
+}
+
+message UnlockBalanceResponse{
+    string userId = 1;
+	ErrorDto error = 2;
+}
+
+enum Currency{
+	CURRENCY_NONE = 0;	
+	CURRENCY_EUR = 1;
+	CURRENCY_UAH = 2;
+	CURRENCY_USD = 3;
+}
